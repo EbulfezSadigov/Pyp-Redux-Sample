@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Customers from './components/Customers';
+import SiteHeader from './components/SiteHeader';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { cartReducer } from './redux/reducers/cart.reducer';
+import Cart from './components/Cart';
+
+const codeStore = createStore(cartReducer)
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={codeStore}>
+      <SiteHeader />
+      <Routes>
+        <Route path='/' element={< Customers />} />
+        <Route path='/cart' element={< Cart />} />
+      </Routes>
+    </Provider>
   );
 }
 
